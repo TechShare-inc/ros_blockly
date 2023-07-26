@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Blockly</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap.native/2.0.15/bootstrap-native-v4.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/blockly_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/blocks_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/javascript_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/python_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/blockly@latest/msg/js/en.js"></script>
+    
+    <script src="./roslib.js"></script>
+
+    <script src="mg400_block.js"></script>
+    <script src="mg400.js"></script>
+    <script src="go1_block.js"></script>
+    <script src="go1.js"></script>
+    <script src="limo_block.js"></script>
+    <script src="limo.js"></script>
+    <script src="custom_block.js"></script>
+    <script src="custom.js"></script>
+    <script src="workspace.js" defer></script>
+
+    <script>
+        const ros =  new ROSLIB.Ros({
+            url: 'ws://localhost:9090'
+            // url: 'ws://192.168.68.137:9090' // For LIMO
+        });
+
+        ros.on('connection', () => {
+            console.log('Connected to websocket server');
+        });
+
+        ros.on('error', error =>{
+            console.log('Error connecting to websocket server: ', error);
+        });
+
+        ros.on('close', () => {
+            console.log("Connection to websocket server was closed");
+        });
+    </script>
+
+    <style>
+        .container {
+            margin: 0 auto 0 0;
+        }
+
+        #blocklyDiv {
+            height: 100vh;
+        }
+
+        .col-4 {
+            float: left;
+            padding-left: 50px;
+        }
+
+        #execCode {
+            margin-left: 10px;
+        }
+
+        #jsCode {
+            width: 600px;
+            height: 100vh;
+            padding-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-8" id="blocklyDiv"></div>
+            <div class="col-4">
+                <button id="showCode" class="btn btn-success">Show Code</button>
+                <button id="execCode" class="btn btn-primary">Run</button>
+                <pre id='jsCode'></pre>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
