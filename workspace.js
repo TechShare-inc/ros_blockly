@@ -58,6 +58,8 @@ Promise.all(
 	/* Load blocks to workspace. */
 	Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
 
+	// Event Listener
+	// Show code corresponding to the current blocks	
 	function showCode() {
 		window.LoopTrap = 1000;
 		Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
@@ -66,6 +68,7 @@ Promise.all(
 	}
 	document.getElementById('showCode').addEventListener('click', showCode, false);
 
+	// Execute the code
 	function execCode() {
 		window.LoopTrap = 1000;
 		Blockly.JavaScript.INFINITE_LOOP_TRAP = 'if(--window.LoopTrap == 0) throw "Infinite loop.";\n';
@@ -77,4 +80,36 @@ Promise.all(
 		}
 	}
 	document.getElementById('execCode').addEventListener('click', execCode, false);
+
+	// Save & Restore when reloading
+	window.addEventListener('beforeunload', () => {
+		// on reloading
+		var xml = Blockly.Xml.workspaceToDom(workspace);
+		localStorage.setItem('workspace', Blockly.Xml.domToText(xml)); // save the workspace
+	});
+
+	function restore() {
+		// start block at any position
+		def_workspace =  
+			/<xml xmlns="https:\/\/developers.google.com\/blockly\/xml"><block type="start_block" id="\/\)86OVa:iC=\|U9Dti~y\/" x="[0-9]+" y="[0-9]+"><\/block><\/xml>/;
+
+		// if not default workspace
+		if (localStorage.getItem('workspace') != null & localStorage.getItem('workspace').match(def_workspace) == null) {
+			xml_text = localStorage.getItem('workspace'); // get the saved xml as string
+			// remove the start block
+			new_text = xml_text.replace(/<block type="start_block" id="\/\)86OVa:iC=\|U9Dti~y\/" x="[0-9]+" y="[0-9]+"><next>/, '');
+			new_text = new_text.replace(/<\/next><\/block>/, '');
+
+			Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(new_text), workspace); // restore
+			console.log('restored');
+			// Delete data
+			localStorage.clear();
+		} else {
+			console.log('Nothing to restore');
+		}
+	}
+	document.getElementById('restore').addEventListener('click', restore, false);
+
+	// Hope to implement an event listener for restoring on reloading, rather than button click
+	// window.addEventListener('load', () => {})
 });

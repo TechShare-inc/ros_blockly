@@ -8,6 +8,7 @@ Blockly.JavaScript['limo_linear'] = function(block, generator) {
         "    messageType : 'geometry_msgs/Twist'\n" +
         "});\n" +
 
+        // if angular_vel already defined
         "try {\n" +
         "    angular_vel;\n" +
         "} catch {\n" +
@@ -23,7 +24,7 @@ Blockly.JavaScript['limo_linear'] = function(block, generator) {
         "      angular : {\n" +
         "        x : 0.0,\n" +
         "        y : 0.0,\n" +
-        "        z : angular_vel\n" +
+        "        z : angular_vel\n" + // keep turning
         "    }\n" +
         "});\n" +
         
@@ -50,6 +51,7 @@ Blockly.JavaScript['limo_angular'] = function(block, generator) {
         "    messageType : 'geometry_msgs/Twist'\n" +
         "});\n" +
         
+        // if linear_vel already defined
         "try {\n" +
         "    linear_vel;\n" +
         "} catch {\n" +
@@ -58,7 +60,7 @@ Blockly.JavaScript['limo_angular'] = function(block, generator) {
         
         "var msg2 = new ROSLIB.Message({\n" +
         "    linear : {\n" +
-        "        x : linear_vel,\n" +
+        "        x : linear_vel,\n" + // keep moving
         "        y : 0.0,\n" +
         "        z : 0.0\n" +
         "    },\n" +

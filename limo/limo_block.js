@@ -6,7 +6,7 @@ Blockly.Blocks['limo_linear'] = {
             .appendField("m/s ");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(180);
+        this.setColour(90);
     this.setTooltip("");
     this.setHelpUrl("");
     }
@@ -22,7 +22,7 @@ Blockly.Blocks['limo_angular'] = {
             .appendField("rad/s");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(180);
+        this.setColour(90);
     this.setTooltip("");
     this.setHelpUrl("");
     }

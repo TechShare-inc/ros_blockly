@@ -25,40 +25,71 @@ Blockly.JavaScript['movj'] = function(block, generator) {
     "movJ.callService(request, result => {\n" +
     "  console.log('MovJ: res ' + result.res)});\n" +
     "var startTime = Date.now();\n" +
-    "while( Date.now() - startTime < 500 );\n"; 
+    "while( Date.now() - startTime < 500 );\n";
+
   return code;
 };
 
 Blockly.JavaScript['enable_robot'] = function(block, generator) {
   var code = 
-    "const enableRobot = new ROSLIB.Service({\n" +
+    "var enableRobot = new ROSLIB.Service({\n" +
     "  ros: ros,\n" + 
     "  name: '/mg400_bringup/srv/EnableRobot',\n" +
     "  serviceType: 'mg400_bringup/EnableRobot',\n" +
     "});\n" +
 
+    "var request = new ROSLIB.ServiceRequest();\n" +
+    "enableRobot.callService(request, result => {\n" +
+    "  console.log('Enable Robot: res ' + result.res)});\n" +
+
+    "var startTime = Date.now();\n" +
+    "while( Date.now() - startTime < 2000 );\n";    
+
+    // Here are some attempts to implement sync-like function
+
     // "var status_listener = new ROSLIB.Topic({\n" +
     // "    ros : ros,\n" +
     // "    name : '/mg400_bringup/msg/RobotStatus',\n" +
     // "    messageType : 'mg400_bringup/RobotStatus'\n" +
-    // "});\n" +    
-
-    "var request = new ROSLIB.ServiceRequest();\n" +
-    "enableRobot.callService(request, result => {\n" +
-    "  console.log('Enable Robot: res ' + result.res)});\n";
+    // "});\n" +  
 
     // "var enable_status = false;\n" +
+
+    // -------- Doesn't wait for confirming enabled
+    // "status_listener.subscribe(function(message) {\n" +
+    // "   enable_status = message.is_enable;\n" +
+    // "   console.log(enable_status);\n" +
+    // "   if (enable_status) {\n" +
+    // "     console.log('Enabled');\n" +
+    // "     status_listener.unsubscribe();\n" +
+    // "   }\n" +
+    // "});\n";
+
+    // -------- enable_status isn't updated
     // "while (!enable_status) {\n" +
+    // "   console.log(enable_status);\n" +  
+    // "   var startTime = Date.now();\n" +
+    // "   while( Date.now() - startTime < 100 );\n" +
+    // "};\n"
+
+    // -------- this makes too many subscribers → subscribe limit error
+    // "do {\n" +
     // "  status_listener.subscribe(function(message) {\n" +
     // "    enable_status = message.is_enable;\n" +
     // "  });\n" +
-    // "}\n" +
+    // "  var startTime = Date.now();\n" +
+    // "  while( Date.now() - startTime < 100 );\n" +
+    // "  status_listener.unsubscribe();\n" +
+    // "  console.log(enable_status);\n" +
+    // "} while (!enable_status);\n" +
+    // "console.log('Enabled');\n" +
     // "status_listener.unsubscribe();\n";
+
   return code;
 };
 
 Blockly.JavaScript['disable_robot'] = function(block) {
-  // failed to read a javascript file to generate the code
+  // Failed to read a javascript file to generate the code
   // var code = "";
   // fetch("./test.js").then(response => response.text())
   //   .then(data => {
@@ -68,7 +99,7 @@ Blockly.JavaScript['disable_robot'] = function(block) {
   //   }); 
 
   var code = 
-    "const disableRobot = new ROSLIB.Service({\n" +
+    "var disableRobot = new ROSLIB.Service({\n" +
     "  ros: ros,\n" + 
     "  name: '/mg400_bringup/srv/DisableRobot',\n" +
     "  serviceType: 'mg400_bringup/DisableRobot',\n" +
@@ -77,12 +108,13 @@ Blockly.JavaScript['disable_robot'] = function(block) {
     "var request = new ROSLIB.ServiceRequest();\n" +
     "disableRobot.callService(request, result => {\n" +
     "  console.log('Disable Robot: res ' + result.res)});\n";
+
   return code;
 };
 
 Blockly.JavaScript['clear_error'] = function(block, generator) {
   var code = 
-    "const clearError = new ROSLIB.Service({\n" +
+    "var clearError = new ROSLIB.Service({\n" +
     "  ros: ros,\n" + 
     "  name: '/mg400_bringup/srv/ClearError',\n" +
     "  serviceType: 'mg400_bringup/ClearError',\n" +
@@ -96,7 +128,7 @@ Blockly.JavaScript['clear_error'] = function(block, generator) {
 
 Blockly.JavaScript['reset_robot'] = function(block, generator) {
   var code = 
-    "const resetRobot = new ROSLIB.Service({\n" +
+    "var resetRobot = new ROSLIB.Service({\n" +
     "  ros: ros,\n" + 
     "  name: '/mg400_bringup/srv/ResetRobot',\n" +
     "  serviceType: 'mg400_bringup/ResetRobot',\n" +

@@ -17,14 +17,14 @@
     
     <script src="./roslib.js"></script>
 
-    <script src="mg400_block.js"></script>
-    <script src="mg400.js"></script>
-    <script src="go1_block.js"></script>
-    <script src="go1.js"></script>
-    <script src="limo_block.js"></script>
-    <script src="limo.js"></script>
-    <script src="custom_block.js"></script>
-    <script src="custom.js"></script>
+    <script src="mg400/mg400_block.js"></script>
+    <script src="mg400/mg400.js"></script>
+    <script src="go1/go1_block.js"></script>
+    <script src="go1/go1.js"></script>
+    <script src="limo/limo_block.js"></script>
+    <script src="limo/limo.js"></script>
+    <script src="custom/custom_block.js"></script>
+    <script src="custom/custom.js"></script>
     <script src="workspace.js" defer></script>
 
     <script>
@@ -64,6 +64,11 @@
             margin-left: 10px;
         }
 
+        #restore {
+            float: left;
+            margin-right: 10px;
+        }
+
         #jsCode {
             width: 600px;
             height: 100vh;
@@ -80,6 +85,7 @@
             <div class="col-4">
                 <button id="showCode" class="btn btn-success">Show Code</button>
                 <button id="execCode" class="btn btn-primary">Run</button>
+                <button id="restore" class="btn">Restore</button>
                 <pre id='jsCode'></pre>
             </div>
         </div>

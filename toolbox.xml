@@ -374,7 +374,10 @@
   </category>
   <category name="GO1" colour="#2691AC">
     <block type="walking" deletable="false" movable="false" editable="false"></block>
+    <block type="turning" deletable="false" movable="false" editable="false"></block>
+    <block type="go1_stop" deletable="false" movable="false" editable="false"></block>
     <block type="stand_up" deletable="false" movable="false" editable="false"></block>
     <block type="stand_down" deletable="false" movable="false" editable="false"></block>
+    <block type="damping" deletable="false" movable="false" editable="false"></block>
   </category>
 </xml>

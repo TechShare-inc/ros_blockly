@@ -19,7 +19,7 @@ Blockly.Blocks['wait'] = {
       this.setNextStatement(true);
       this.setColour(330);
       this.setTooltip('');
-      this.setHelpUrl('http://erlerobotics.com/docs/Robot_Operating_System/ROS/Blockly/Intro.html');
+      this.setHelpUrl('');
     }
 };
 
