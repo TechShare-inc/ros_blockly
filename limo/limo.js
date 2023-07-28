@@ -31,7 +31,7 @@ Blockly.JavaScript['limo_linear'] = function(block, generator) {
         "console.log('linear cmd_vel');\n" +
         "cmd_vel.publish(msg1);\n" +
         "var startTime = Date.now();\n" +
-        "while( Date.now() - startTime < 500 );\n";  
+        "while( Date.now() - startTime < 400 );\n";  
 
     return code;
 };

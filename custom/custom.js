@@ -21,7 +21,7 @@ Blockly.JavaScript['for_time'] = function(block) {
       branch +
     // Need to slow down to prevent infinite loop 
     "  var startTime = Date.now();\n" +
-    "  while( Date.now() - startTime < 100 );\n" +
+    "  while( Date.now() - startTime < 10 );\n" +
     "};\n" +
     "console.log('while loop finished');";  
   return code;

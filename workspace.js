@@ -93,17 +93,26 @@ Promise.all(
 		def_workspace =  
 			/<xml xmlns="https:\/\/developers.google.com\/blockly\/xml"><block type="start_block" id="\/\)86OVa:iC=\|U9Dti~y\/" x="[0-9]+" y="[0-9]+"><\/block><\/xml>/;
 
-		// if not default workspace
-		if (localStorage.getItem('workspace') != null & localStorage.getItem('workspace').match(def_workspace) == null) {
-			xml_text = localStorage.getItem('workspace'); // get the saved xml as string
-			// remove the start block
-			new_text = xml_text.replace(/<block type="start_block" id="\/\)86OVa:iC=\|U9Dti~y\/" x="[0-9]+" y="[0-9]+"><next>/, '');
-			new_text = new_text.replace(/<\/next><\/block>/, '');
+		// if there is any code to restore
+		if (localStorage.getItem('workspace') != null) {
+			if (localStorage.getItem('workspace').match(def_workspace) == null) { // if not workspace is the same as default
+				// get the saved xml as string
+				xml_text = localStorage.getItem('workspace'); 
+				// remove the start block
+				new_text = xml_text.replace(/<block type="start_block" id="\/\)86OVa:iC=\|U9Dti~y\/" x="[0-9]+" y="[0-9]+"><next>/, '');
 
-			Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(new_text), workspace); // restore
-			console.log('restored');
-			// Delete data
-			localStorage.clear();
+				const temp = new_text;
+				new_text = new_text.replace(/<block type="start_block" id="\/\)86OVa:iC=\|U9Dti~y\/" x="[0-9]+" y="[0-9]+"><\/block>/, '');
+				if (new_text == temp) {
+					new_text = new_text.replace(/<\/next><\/block>/, '');
+				}
+				
+				// restore
+				Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(new_text), workspace); 
+				console.log('restored');
+				// Delete data
+				localStorage.clear();
+			}
 		} else {
 			console.log('Nothing to restore');
 		}
