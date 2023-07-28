@@ -118,7 +118,4 @@ Promise.all(
 		}
 	}
 	document.getElementById('restore').addEventListener('click', restore, false);
-
-	// Hope to implement an event listener for restoring on reloading, rather than button click
-	// window.addEventListener('load', () => {})
 });

@@ -45,46 +45,6 @@ Blockly.JavaScript['enable_robot'] = function(block, generator) {
     "var startTime = Date.now();\n" +
     "while( Date.now() - startTime < 2000 );\n";    
 
-    // Here are some attempts to implement sync-like function
-
-    // "var status_listener = new ROSLIB.Topic({\n" +
-    // "    ros : ros,\n" +
-    // "    name : '/mg400_bringup/msg/RobotStatus',\n" +
-    // "    messageType : 'mg400_bringup/RobotStatus'\n" +
-    // "});\n" +  
-
-    // "var enable_status = false;\n" +
-
-    // -------- Doesn't wait for confirming enabled
-    // "status_listener.subscribe(function(message) {\n" +
-    // "   enable_status = message.is_enable;\n" +
-    // "   console.log(enable_status);\n" +
-    // "   if (enable_status) {\n" +
-    // "     console.log('Enabled');\n" +
-    // "     status_listener.unsubscribe();\n" +
-    // "   }\n" +
-    // "});\n";
-
-    // -------- enable_status isn't updated
-    // "while (!enable_status) {\n" +
-    // "   console.log(enable_status);\n" +  
-    // "   var startTime = Date.now();\n" +
-    // "   while( Date.now() - startTime < 100 );\n" +
-    // "};\n"
-
-    // -------- this makes too many subscribers → subscribe limit error
-    // "do {\n" +
-    // "  status_listener.subscribe(function(message) {\n" +
-    // "    enable_status = message.is_enable;\n" +
-    // "  });\n" +
-    // "  var startTime = Date.now();\n" +
-    // "  while( Date.now() - startTime < 100 );\n" +
-    // "  status_listener.unsubscribe();\n" +
-    // "  console.log(enable_status);\n" +
-    // "} while (!enable_status);\n" +
-    // "console.log('Enabled');\n" +
-    // "status_listener.unsubscribe();\n";
-
   return code;
 };
 
