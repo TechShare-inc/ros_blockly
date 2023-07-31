@@ -49,14 +49,6 @@ Blockly.JavaScript['enable_robot'] = function(block, generator) {
 };
 
 Blockly.JavaScript['disable_robot'] = function(block) {
-  // Failed to read a javascript file to generate the code
-  // var code = "";
-  // fetch("./test.js").then(response => response.text())
-  //   .then(data => {
-  //       code += data;
-  //       console.log(code);
-  //       return code;
-  //   }); 
 
   var code = 
     "var disableRobot = new ROSLIB.Service({\n" +
